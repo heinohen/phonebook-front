@@ -1,20 +1,26 @@
 /* eslint-disable no-extra-semi */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import './App.css';
 import Search from "./components/Search";
 import PersonList from "./components/Personlist";
 import PersonForm from "./components/Personform";
+import personService from './services/persons';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ]);
-  
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [showFiltered, setFiltered] = useState('');
+
+  useEffect(() => {
+    console.log('effect');
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons);
+      })
+  }, []);
+  //jos toinen parametri on tyhjä taulukko, suoritetaan efekti ainoastaan komponentin ensimmäisen renderöinnin jälkeen!
 
 
 
@@ -27,12 +33,24 @@ const App = () => {
       number: newNumber
     };
 
+    if (personObject.name.length < 3) {
+      alert(`Name field must be at least 3 characters`);
+      return;
+    }
+
     const matchedName = persons.filter(person => person.name.toLowerCase() === newName.toLowerCase());
 
     if (matchedName.length !== 0) {
       alert(`${newName} is already added to phonebook!`);
     } else {
       setPersons(persons.concat(personObject));
+      personService
+        .create(personObject)
+        .then(person => {
+          setPersons(persons.concat(person));
+          setNewName('');
+          setNewNumber('');
+        })
     };
 
     setNewName('');
