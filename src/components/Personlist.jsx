@@ -1,21 +1,15 @@
-// Args:
-// person: object
-// deleteThisPerson: action
-// Returns:
-// yksi table row elementti jossa tiedot ja delete-nappi toiminnallisuudella
-const Person = ( { person }) => {
+const Person = ( { person, deleteThisPerson }) => {
     return (
         <tr>
+            <td>#{person.id}</td>
             <td>{person.name}</td>
             <td>{person.number}</td>
+            <td><button onClick = {() => deleteThisPerson(person.id)}>delete</button></td>
         </tr>
     );
 };
-//             <td>#{person.id}</td>
-//            <td><button onClick={() => deleteThisPerson(person.id)}>delete</button></td>
 
-
-const PersonList = ({ persons, showFiltered }) => {
+const PersonList = ({ persons, showFiltered, deleteThisPerson }) => {
     const filteredPersons = persons.filter((person) =>
         person.name.toLowerCase()
         .includes(showFiltered.toLowerCase())
@@ -26,7 +20,7 @@ const PersonList = ({ persons, showFiltered }) => {
             <table>
                 <tbody>
                     {filteredPersons.map(person => 
-                        <Person key={person.name} person={person} />
+                        <Person key={person.name} person={person} deleteThisPerson={deleteThisPerson} />
                     )}
                 </tbody>
             </table>

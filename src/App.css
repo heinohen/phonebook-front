@@ -1,6 +1,12 @@
 body {
-    background-color: black;
-    color: gold;
+    background: black;
+    font-family: monospace;
+    color: white;
+}
+
+
+h2 {
+    color: green;
 }
 
 input {
@@ -13,4 +19,28 @@ input {
 .add {
     background-color: darkgray;
     border-radius: 20px;
+}
+
+.headerText {
+    color: white;
+}
+
+.error {
+    color: red;
+    background: lightgray;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.success {
+    color: green;
+    background: lightgray;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
