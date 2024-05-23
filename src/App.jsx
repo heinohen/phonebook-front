@@ -70,6 +70,13 @@ const App = () => {
           setPersons(persons.concat(person));
           setNewName('');
           setNewNumber('');
+          setErrorStatus(false);
+          setNotificationMessage(`Added ${person.name}`);
+          console.log('success <----');
+          setTimeout(() => {
+            setNotificationMessage(null);
+            setErrorStatus(false);
+          }, 5000)
         })
     };
 
@@ -108,8 +115,18 @@ const App = () => {
             setNotificationMessage(null);
             setErrorStatus(false);
           }, 5000)
-        });
-    }
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch(_e => {
+            setNotificationMessage(`Could not delete ${pers[0].name} from the server! \n
+          Maybe it was already deleted?`);
+            setPersons(persons.filter(p => p.id !== pers[0].id));
+            setTimeout(() => {
+              setNotificationMessage(null);
+              setErrorStatus(null);
+            }, 5000);
+          });
+    };
   };
 
   return (
