@@ -16,8 +16,8 @@ const PersonList = ({ persons, showFiltered, deleteThisPerson }) => {
     );
 
     return(
-        <div>
-            <table>
+        <div className="personlist-container">
+            <table className="personlist-container">
                 <tbody>
                     {filteredPersons.map(person => 
                         <Person key={person.name} person={person} deleteThisPerson={deleteThisPerson} />

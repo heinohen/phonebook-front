@@ -1,8 +1,8 @@
 const PersonForm = ( {submit, name, number, handleName, handleNumber }) => {
     return (
-        <div>
+        <div className="personform-container">
         <form onSubmit={submit}>
-        <div>
+        <div className="personform-container">
         name: 
         <input 
             value = {name}
@@ -17,7 +17,7 @@ const PersonForm = ( {submit, name, number, handleName, handleNumber }) => {
         />
         </div>
             <div>
-            <button type = "submit" className="add">add</button>
+            <button type = "submit" className="add" onClick={console.log('asd')}>add</button>
             </div>
         </form>
         </div>
